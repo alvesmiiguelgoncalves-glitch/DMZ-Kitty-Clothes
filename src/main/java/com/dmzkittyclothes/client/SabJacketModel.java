@@ -33,8 +33,8 @@ public class SabJacketModel extends HumanoidModel<LivingEntity> {
 
         PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4F, -8F, -4F, 8F, 8F, 8F, new CubeDeformation(0.2F)).texOffs(64, 0).addBox(-4.5F, -1F, -4.5F, 9F, 3F, 9F, new CubeDeformation(0.1F)), PartPose.offset(0F, 0F, 0F));
         PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 16).addBox(-4F, 0F, -2F, 8F, 12F, 4F, new CubeDeformation(0.3F)).texOffs(24, 16).addBox(-4F, 0F, -2F, 8F, 12F, 4F, new CubeDeformation(0.4F)).texOffs(68, 26).addBox(-4.5F, 9.5F, -3F, 9F, 2F, 6F, new CubeDeformation(0.1F)), PartPose.offset(0F, 0F, 0F));
-        PartDefinition right_arm = root.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(48, 16).addBox(-3F, -2F, -2F, 4F, 12F, 4F, new CubeDeformation(0.45F)).texOffs(32, 48).addBox(-3F, -2F, -2F, 4F, 12F, 4F, new CubeDeformation(0.55F)), PartPose.offset(-5F, 2F, 0F));
-        PartDefinition left_arm = root.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(48, 0).addBox(-1F, -2F, -2F, 4F, 12F, 4F, new CubeDeformation(0.45F)).texOffs(16, 48).addBox(-1F, -2F, -2F, 4F, 12F, 4F, new CubeDeformation(0.55F)), PartPose.offset(5F, 2F, 0F));
+        PartDefinition right_arm = root.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(48, 16).addBox(-3F, -2F, -2F, 4F, 12F, 4F, new CubeDeformation(0.33F)).texOffs(32, 48).addBox(-3F, -2F, -2F, 4F, 12F, 4F, new CubeDeformation(0.43F)), PartPose.offset(-5F, 2F, 0F));
+        PartDefinition left_arm = root.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(48, 0).addBox(-1F, -2F, -2F, 4F, 12F, 4F, new CubeDeformation(0.33F)).texOffs(16, 48).addBox(-1F, -2F, -2F, 4F, 12F, 4F, new CubeDeformation(0.43F)), PartPose.offset(5F, 2F, 0F));
         PartDefinition right_leg = root.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(86, 12).addBox(-3F, -1F, -3F, 5F, 8F, 6F, new CubeDeformation(0.3F)), PartPose.offset(-1.9F, 12F, 0F));
         PartDefinition left_leg = root.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(64, 12).addBox(-2F, -1F, -3F, 5F, 8F, 6F, new CubeDeformation(0.3F)), PartPose.offset(1.9F, 12F, 0F));
         root.addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
@@ -58,6 +58,9 @@ public class SabJacketModel extends HumanoidModel<LivingEntity> {
         this.rightLeg.visible = true;
         this.leftLeg.visible = true;
         this.hat.visible = false;
+        // Alonga um pouco as mangas so no comprimento (nao cobre a logo)
+        this.rightArm.yScale = ARM_Y;
+        this.leftArm.yScale = ARM_Y;
         // Encurta a "saia" sem mexer nos UVs: escala as pernas a partir do quadril.
         for (net.minecraft.client.model.geom.ModelPart leg : new net.minecraft.client.model.geom.ModelPart[]{this.rightLeg, this.leftLeg}) {
             leg.xScale = SKIRT_X;
@@ -66,7 +69,8 @@ public class SabJacketModel extends HumanoidModel<LivingEntity> {
         }
     }
 
-    private static final float SKIRT_X = 0.9F;
-    private static final float SKIRT_Y = 0.5F;
-    private static final float SKIRT_Z = 0.7F;
+    private static final float ARM_Y = 1.06F;
+    private static final float SKIRT_X = 1.0F;
+    private static final float SKIRT_Y = 0.8F;
+    private static final float SKIRT_Z = 0.85F;
 }
