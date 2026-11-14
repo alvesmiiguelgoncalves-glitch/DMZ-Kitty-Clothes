@@ -11,6 +11,21 @@ public final class KittyConfig {
     public static final ForgeConfigSpec.DoubleValue SKIRT_OFFSET_X, SKIRT_OFFSET_Y, SKIRT_OFFSET_Z;
     public static final ForgeConfigSpec.DoubleValue ARM_SCALE_X, ARM_SCALE_Y, ARM_SCALE_Z;
 
+    /** {scaleX, scaleY, scaleZ, offsetX, offsetY, offsetZ} */
+    public static final ForgeConfigSpec.DoubleValue[] WAIST = new ForgeConfigSpec.DoubleValue[6];
+    public static final ForgeConfigSpec.DoubleValue[] COLLAR = new ForgeConfigSpec.DoubleValue[6];
+
+    private static void extra(ForgeConfigSpec.Builder b, String name, String comment, ForgeConfigSpec.DoubleValue[] out) {
+        b.comment(comment, "Escala 1.0 = tamanho original; a escala parte do centro da peca. Deslocamentos em pixels.").push(name);
+        out[0] = b.comment("Largura").defineInRange("scaleX", 1.0, 0.1, 3.0);
+        out[1] = b.comment("Altura").defineInRange("scaleY", 1.0, 0.1, 3.0);
+        out[2] = b.comment("Profundidade").defineInRange("scaleZ", 1.0, 0.1, 3.0);
+        out[3] = b.comment("Lado a lado").defineInRange("offsetX", 0.0, -8.0, 8.0);
+        out[4] = b.comment("Sobe (-) / desce (+)").defineInRange("offsetY", 0.0, -8.0, 8.0);
+        out[5] = b.comment("Frente (-) / tras (+)").defineInRange("offsetZ", 0.0, -8.0, 8.0);
+        b.pop();
+    }
+
     static {
         ForgeConfigSpec.Builder b = new ForgeConfigSpec.Builder();
 
@@ -29,6 +44,9 @@ public final class KittyConfig {
         ARM_SCALE_Y = b.comment("Comprimento").defineInRange("scaleY", 1.06, 0.1, 3.0);
         ARM_SCALE_Z = b.defineInRange("scaleZ", 1.0, 0.1, 3.0);
         b.pop();
+
+        extra(b, "waist", "Faixa/quadrado da cintura da jaqueta.", WAIST);
+        extra(b, "collar", "Gola (parte em volta do pescoco/cabeca).", COLLAR);
 
         SPEC = b.build();
     }

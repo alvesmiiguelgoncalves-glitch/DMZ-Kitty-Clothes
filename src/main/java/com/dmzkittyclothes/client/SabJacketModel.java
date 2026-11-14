@@ -24,16 +24,33 @@ public class SabJacketModel extends HumanoidModel<LivingEntity> {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(
             new ResourceLocation(DmzKittyClothes.MOD_ID, "sab_jacket"), "main");
 
+    private final ModelPart collar;
+    private final ModelPart waist;
+
     public SabJacketModel(ModelPart root) {
         super(root);
+        this.collar = this.head.getChild("collar");
+        this.waist = this.body.getChild("waist");
+    }
+
+    private static void applyExtra(ModelPart part, float px, float py, float pz,
+                                   net.minecraftforge.common.ForgeConfigSpec.DoubleValue[] c) {
+        part.xScale = KittyConfig.get(c[0]);
+        part.yScale = KittyConfig.get(c[1]);
+        part.zScale = KittyConfig.get(c[2]);
+        part.x = px + KittyConfig.get(c[3]);
+        part.y = py + KittyConfig.get(c[4]);
+        part.z = pz + KittyConfig.get(c[5]);
     }
 
     public static LayerDefinition createBodyLayer() {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
 
-        PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4F, -8F, -4F, 8F, 8F, 8F, new CubeDeformation(0.2F)).texOffs(64, 0).addBox(-4.5F, -1F, -4.5F, 9F, 3F, 9F, new CubeDeformation(0.1F)), PartPose.offset(0F, 0F, 0F));
-        PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 16).addBox(-4F, 0F, -2F, 8F, 12F, 4F, new CubeDeformation(0.3F)).texOffs(24, 16).addBox(-4F, 0F, -2F, 8F, 12F, 4F, new CubeDeformation(0.4F)).texOffs(68, 26).addBox(-4.5F, 9.5F, -3F, 9F, 2F, 6F, new CubeDeformation(0.1F)), PartPose.offset(0F, 0F, 0F));
+        PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4F, -8F, -4F, 8F, 8F, 8F, new CubeDeformation(0.2F)), PartPose.offset(0F, 0F, 0F));
+        head.addOrReplaceChild("collar", CubeListBuilder.create().texOffs(64, 0).addBox(-4.5F, -1.5F, -4.5F, 9F, 3F, 9F, new CubeDeformation(0.1F)), PartPose.offset(0F, 0.5F, 0F));
+        PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 16).addBox(-4F, 0F, -2F, 8F, 12F, 4F, new CubeDeformation(0.3F)).texOffs(24, 16).addBox(-4F, 0F, -2F, 8F, 12F, 4F, new CubeDeformation(0.4F)), PartPose.offset(0F, 0F, 0F));
+        body.addOrReplaceChild("waist", CubeListBuilder.create().texOffs(68, 26).addBox(-4.5F, -1F, -3F, 9F, 2F, 6F, new CubeDeformation(0.1F)), PartPose.offset(0F, 10.5F, 0F));
         PartDefinition right_arm = root.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(48, 16).addBox(-3F, -2F, -2F, 4F, 12F, 4F, new CubeDeformation(0.33F)).texOffs(32, 48).addBox(-3F, -2F, -2F, 4F, 12F, 4F, new CubeDeformation(0.43F)), PartPose.offset(-5F, 2F, 0F));
         PartDefinition left_arm = root.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(48, 0).addBox(-1F, -2F, -2F, 4F, 12F, 4F, new CubeDeformation(0.33F)).texOffs(16, 48).addBox(-1F, -2F, -2F, 4F, 12F, 4F, new CubeDeformation(0.43F)), PartPose.offset(5F, 2F, 0F));
         PartDefinition right_leg = root.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(86, 12).addBox(-3F, -1F, -3F, 5F, 8F, 6F, new CubeDeformation(0.3F)), PartPose.offset(-1.9F, 12F, 0F));
@@ -76,5 +93,7 @@ public class SabJacketModel extends HumanoidModel<LivingEntity> {
         this.leftLeg.y += oy;
         this.rightLeg.z += oz;
         this.leftLeg.z += oz;
+        applyExtra(this.waist, 0F, 10.5F, 0F, KittyConfig.WAIST);
+        applyExtra(this.collar, 0F, 0.5F, 0F, KittyConfig.COLLAR);
     }
 }
