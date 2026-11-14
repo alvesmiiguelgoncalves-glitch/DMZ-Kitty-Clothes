@@ -32,11 +32,11 @@ public class SabJacketModel extends HumanoidModel<LivingEntity> {
         PartDefinition root = mesh.getRoot();
 
         PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4F, -8F, -4F, 8F, 8F, 8F, new CubeDeformation(0.2F)).texOffs(64, 0).addBox(-4.5F, -1F, -4.5F, 9F, 3F, 9F, new CubeDeformation(0.1F)), PartPose.offset(0F, 0F, 0F));
-        PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 16).addBox(-4F, 0F, -2F, 8F, 12F, 4F, new CubeDeformation(0.3F)).texOffs(24, 16).addBox(-4F, 0F, -2F, 8F, 12F, 4F, new CubeDeformation(0.4F)).texOffs(68, 26).addBox(-4.5F, 9.5F, -3F, 9F, 2F, 6F, new CubeDeformation(0.1F)), PartPose.offset(0F, 0F, 0F));
+        PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 16).addBox(-4F, 0F, -2F, 8F, 12F, 4F, new CubeDeformation(0.3F)).texOffs(24, 16).addBox(-4F, 0F, -2F, 8F, 12F, 4F, new CubeDeformation(0.4F)).texOffs(68, 26).addBox(-4.5F, 9.5F, -2.5F, 9F, 2F, 5F, new CubeDeformation(0.1F)), PartPose.offset(0F, 0F, 0F));
         PartDefinition right_arm = root.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(48, 16).addBox(-3F, -2F, -2F, 4F, 12F, 4F, new CubeDeformation(0.3F)).texOffs(32, 48).addBox(-3F, -2F, -2F, 4F, 12F, 4F, new CubeDeformation(0.4F)), PartPose.offset(-5F, 2F, 0F));
         PartDefinition left_arm = root.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(48, 0).addBox(-1F, -2F, -2F, 4F, 12F, 4F, new CubeDeformation(0.3F)).texOffs(16, 48).addBox(-1F, -2F, -2F, 4F, 12F, 4F, new CubeDeformation(0.4F)), PartPose.offset(5F, 2F, 0F));
-        PartDefinition right_leg = root.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(86, 12).addBox(-3F, -1F, -3F, 5F, 8F, 6F, new CubeDeformation(0.3F)), PartPose.offset(-1.9F, 12F, 0F));
-        PartDefinition left_leg = root.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(64, 12).addBox(-2F, -1F, -3F, 5F, 8F, 6F, new CubeDeformation(0.3F)), PartPose.offset(1.9F, 12F, 0F));
+        PartDefinition right_leg = root.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(86, 12).addBox(-2.5F, -1F, -2.5F, 5F, 5F, 5F, new CubeDeformation(0.1F)), PartPose.offset(-1.9F, 12F, 0F));
+        PartDefinition left_leg = root.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(64, 12).addBox(-2.5F, -1F, -2.5F, 5F, 5F, 5F, new CubeDeformation(0.1F)), PartPose.offset(1.9F, 12F, 0F));
         root.addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
 
         return LayerDefinition.create(mesh, 128, 128);

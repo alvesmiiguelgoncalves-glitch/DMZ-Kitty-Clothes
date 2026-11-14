@@ -6,7 +6,8 @@
   "refmap": "dmz_kitty_clothes.refmap.json",
   "mixins": [],
   "client": [
-    "VanillaModelSyncMixin"
+    "VanillaModelSyncMixin",
+    "BoneVisibilityMixin"
   ],
   "server": [],
   "injectors": {
