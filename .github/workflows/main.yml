@@ -34,6 +34,6 @@ jobs:
       - name: Upload jar
         uses: actions/upload-artifact@v4
         with:
-          name: dmz-sab-jacket
+          name: dmz-kitty-clothes
           path: build/libs/*.jar
           if-no-files-found: error
