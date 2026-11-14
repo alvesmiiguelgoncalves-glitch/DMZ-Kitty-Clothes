@@ -1,0 +1,4 @@
+{
+  "parent": "item/generated",
+  "textures": { "layer0": "dmz_sab_jacket:item/sab_jacket_dyed" }
+}

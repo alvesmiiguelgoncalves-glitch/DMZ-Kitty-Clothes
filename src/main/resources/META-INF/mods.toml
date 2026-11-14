@@ -1,0 +1,40 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="All Rights Reserved"
+
+[[mods]]
+modId="dmz_sab_jacket"
+version="1.0.0"
+displayName="DMZ S.A.B. Jacket"
+credits="Jaqueta S.A.B., modelo e texturas: Novatsugs (Novatsugs Extra Clothes), usados com permissao do criador. Base: DragonMine Z."
+authors="Seu Nome Aqui"
+description='''Adiciona a Jaqueta S.A.B. como item de Curios para o DragonMine Z, tingivel com corante.'''
+displayTest="IGNORE_SERVER_VERSION"
+
+[[dependencies.dmz_sab_jacket]]
+    modId="forge"
+    mandatory=true
+    versionRange="[47,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.dmz_sab_jacket]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.20.1]"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.dmz_sab_jacket]]
+    modId="dragonminez"
+    mandatory=true
+    versionRange="[2.2,)"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.dmz_sab_jacket]]
+    modId="curios"
+    mandatory=true
+    versionRange="[5,)"
+    ordering="AFTER"
+    side="BOTH"
