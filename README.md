@@ -1,8 +1,8 @@
-# DMZ S.A.B. Jacket
+# DMZ: Kitty's Clothes
 
-Addon para o **DragonMine Z 2.2** (Forge 1.20.1) que adiciona a **Jaqueta S.A.B.** como item de **Curios**, num slot próprio chamado "Jaqueta". Assim você usa a jaqueta junto com qualquer armadura ou roupa, e ela desenha também a gola (cabeça) e a cobertura das coxas (pernas).
+Addon para o **DragonMine Z 2.2** (Forge 1.20.1) com roupas como itens de **Curios**, cada uma num slot próprio. Assim você usa as roupas junto com qualquer armadura. Hoje inclui a **Jaqueta S.A.B.**; luvas, botas e casacos entram no mesmo mod.
 
-**Créditos:** modelo e texturas da jaqueta por **Novatsugs** (*Novatsugs Extra Clothes*), usados com permissão do criador.
+**Créditos:** modelo e texturas da Jaqueta S.A.B. por **Novatsugs** (*Novatsugs Extra Clothes*), usados com permissão do criador.
 
 ## Instalar
 
@@ -11,18 +11,40 @@ Addon para o **DragonMine Z 2.2** (Forge 1.20.1) que adiciona a **Jaqueta S.A.B.
 
 ## Usar
 
-- **Obter:** aba de criativo **DMZ Jaqueta S.A.B.** (ou `/give @s dmz_sab_jacket:sab_jacket`).
+- **Obter:** aba de criativo **DMZ: Kitty's Clothes** (ou `/give @s dmz_kitty_clothes:sab_jacket`).
 - **Equipar:** na tela do Curios, slot **Jaqueta**.
 - **Tingir:** mesa de crafting, jaqueta + corantes (igual armadura de couro, dá para misturar corantes). Sem tinta ela é azul (textura original); com tinta usa a textura cinza do criador com a cor aplicada.
 - **Tirar a tinta:** clique com a jaqueta num caldeirão com água.
 
+## Correção da pose (mixin)
+
+As roupas de Curios são desenhadas sobre um modelo vanilla que o DMZ mantém sincronizado com a animação do personagem (`VanillaModelSync`). Essa cópia é aproximada:
+
+- a posição X do braço sai com o sinal invertido (a roupa cruza o braço para fora quando o personagem cruza para dentro);
+- a rotação da cintura é somada à do braço, o que só vale se os dois girarem no mesmo eixo.
+
+O resultado é a roupa fora da pose do corpo: parece trocar de braço, "mexe sozinha" e deixa a camisa aparecer.
+
+Este mod aplica um mixin (`VanillaModelSyncMixin`) que deixa o DMZ rodar e depois sobrescreve as poses de cabeça, corpo, braços e pernas com o cálculo exato (`PoseSolver`: cadeia completa de ossos composta como matrizes, igual ao `prepMatrixForBone` do GeckoLib). Vale para **todas** as roupas deste mod.
+
+- **Comparar no jogo:** inicie com `-Ddmzkitty.exactPose=false` para voltar ao comportamento original do DMZ.
+- **Conferir a matemática sem o Minecraft:** na raiz do repositório,
+  `javac -d /tmp/pose-check src/main/java/com/dmzkittyclothes/client/pose/PoseSolver.java dev/PoseSolverCheck.java && java -cp /tmp/pose-check PoseSolverCheck`
+- Se o DMZ corrigir isso por conta própria, o resultado é o mesmo e o mixin pode ser removido.
+
 ## Notas e limitações
 
-- Não usa mixin. O DMZ já repassa as camadas de terceiros (inclusive a do Curios) ao renderer dele.
-- O DMZ não desenha camadas de terceiros em formas Oozaru; a jaqueta some nessas formas.
-- O modelo foi convertido do Bedrock (`geometry.overcoat`). A camada do peito (`breasts`) fica de fora, como no addon original (ele a esconde para a armadura).
+- O DMZ não desenha camadas de terceiros em formas Oozaru; as roupas somem nessas formas.
+- A escala dos ossos (ex.: formas com corpo maior) não entra no cálculo da pose.
+- O modelo da jaqueta foi convertido do Bedrock (`geometry.overcoat`). A camada do peito (`breasts`) fica de fora, como no addon original (ele a esconde para a armadura).
 - Tingido: os pixels cinza recebem a cor; os detalhes que o original marca como "não tingíveis" (faixas, punhos, detalhes roxos) são desenhados de novo sem tinta, por uma segunda textura.
+- A camisa ainda pode aparecer por baixo se a camada de roupa do DMZ for mais grossa que a jaqueta; isso é diferente do problema de pose e precisa ser visto no jogo.
 - Ainda não foi compilado nem testado no jogo.
+
+## v1.1.0
+
+- O mod virou **DMZ: Kitty's Clothes** (ID `dmz_kitty_clothes`), para reunir todas as roupas. **Itens antigos `dmz_sab_jacket:sab_jacket` deixam de existir:** pegue a jaqueta de novo com `/give @s dmz_kitty_clothes:sab_jacket`.
+- Novo mixin que corrige a pose das roupas nas animações do DMZ.
 
 ## v1.0.1
 
