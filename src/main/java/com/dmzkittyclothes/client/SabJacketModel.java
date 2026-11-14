@@ -26,11 +26,15 @@ public class SabJacketModel extends HumanoidModel<LivingEntity> {
 
     private final ModelPart collar;
     private final ModelPart waist;
+    private final ModelPart frontPanel;
+    private final ModelPart backPanel;
 
     public SabJacketModel(ModelPart root) {
         super(root);
         this.collar = this.head.getChild("collar");
         this.waist = this.body.getChild("waist");
+        this.frontPanel = this.body.getChild("front_panel");
+        this.backPanel = this.body.getChild("back_panel");
     }
 
     private static void applyExtra(ModelPart part, float px, float py, float pz,
@@ -51,6 +55,10 @@ public class SabJacketModel extends HumanoidModel<LivingEntity> {
         head.addOrReplaceChild("collar", CubeListBuilder.create().texOffs(64, 0).addBox(-4.5F, -1.5F, -4.5F, 9F, 3F, 9F, new CubeDeformation(0.1F)), PartPose.offset(0F, 0.5F, 0F));
         PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 16).addBox(-4F, 0F, -2F, 8F, 12F, 4F, new CubeDeformation(0.3F)).texOffs(24, 16).addBox(-4F, 0F, -2F, 8F, 12F, 4F, new CubeDeformation(0.4F)), PartPose.offset(0F, 0F, 0F));
         body.addOrReplaceChild("waist", CubeListBuilder.create().texOffs(68, 26).addBox(-4.5F, -1F, -3F, 9F, 2F, 6F, new CubeDeformation(0.1F)), PartPose.offset(0F, 10.5F, 0F));
+        // Painel da frente: preso ao corpo (nao balanca com as pernas), usa a parte de baixo da frente da jaqueta (mesmo UV) e fecha o vao entre as pernas.
+        body.addOrReplaceChild("front_panel", CubeListBuilder.create().texOffs(27, 25).addBox(-4F, -3F, -0.5F, 8F, 6F, 1F, new CubeDeformation(0.2F)), PartPose.offset(0F, 14F, -2.5F));
+        // Painel de tras: mesmo esquema, usando a parte de baixo das costas da jaqueta.
+        body.addOrReplaceChild("back_panel", CubeListBuilder.create().texOffs(30, 25).addBox(-4F, -3F, -0.5F, 8F, 6F, 1F, new CubeDeformation(0.2F)), PartPose.offset(0F, 14F, 2.5F));
         PartDefinition right_arm = root.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(48, 16).addBox(-3F, -2F, -2F, 4F, 12F, 4F, new CubeDeformation(0.33F)).texOffs(32, 48).addBox(-3F, -2F, -2F, 4F, 12F, 4F, new CubeDeformation(0.43F)), PartPose.offset(-5F, 2F, 0F));
         PartDefinition left_arm = root.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(48, 0).addBox(-1F, -2F, -2F, 4F, 12F, 4F, new CubeDeformation(0.33F)).texOffs(16, 48).addBox(-1F, -2F, -2F, 4F, 12F, 4F, new CubeDeformation(0.43F)), PartPose.offset(5F, 2F, 0F));
         PartDefinition right_leg = root.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(86, 12).addBox(-3F, -1F, -3F, 5F, 8F, 6F, new CubeDeformation(0.3F)), PartPose.offset(-1.9F, 12F, 0F));
@@ -94,6 +102,10 @@ public class SabJacketModel extends HumanoidModel<LivingEntity> {
         this.rightLeg.z += oz;
         this.leftLeg.z += oz;
         applyExtra(this.waist, 0F, 10.5F, 0F, KittyConfig.WAIST);
+        applyExtra(this.frontPanel, 0F, 14F, -2.5F, KittyConfig.FRONT_PANEL);
+        this.frontPanel.visible = KittyConfig.getBool(KittyConfig.FRONT_PANEL_ENABLED);
+        applyExtra(this.backPanel, 0F, 14F, 2.5F, KittyConfig.BACK_PANEL);
+        this.backPanel.visible = KittyConfig.getBool(KittyConfig.BACK_PANEL_ENABLED);
         applyExtra(this.collar, 0F, 0.5F, 0F, KittyConfig.COLLAR);
     }
 }

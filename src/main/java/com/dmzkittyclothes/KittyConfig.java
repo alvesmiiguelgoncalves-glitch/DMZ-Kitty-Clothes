@@ -15,6 +15,12 @@ public final class KittyConfig {
     public static final ForgeConfigSpec.DoubleValue[] WAIST = new ForgeConfigSpec.DoubleValue[6];
     public static final ForgeConfigSpec.DoubleValue[] COLLAR = new ForgeConfigSpec.DoubleValue[6];
 
+    public static final ForgeConfigSpec.DoubleValue[] FRONT_PANEL = new ForgeConfigSpec.DoubleValue[6];
+    public static final ForgeConfigSpec.BooleanValue FRONT_PANEL_ENABLED;
+
+    public static final ForgeConfigSpec.DoubleValue[] BACK_PANEL = new ForgeConfigSpec.DoubleValue[6];
+    public static final ForgeConfigSpec.BooleanValue BACK_PANEL_ENABLED;
+
     private static void extra(ForgeConfigSpec.Builder b, String name, String comment, ForgeConfigSpec.DoubleValue[] out) {
         b.comment(comment, "Escala 1.0 = tamanho original; a escala parte do centro da peca. Deslocamentos em pixels.").push(name);
         out[0] = b.comment("Largura").defineInRange("scaleX", 1.0, 0.1, 3.0);
@@ -46,6 +52,14 @@ public final class KittyConfig {
         b.pop();
 
         extra(b, "waist", "Faixa/quadrado da cintura da jaqueta.", WAIST);
+        b.comment("Painel preso ao corpo que fecha o vao da frente da saia (nao balanca com as pernas).").push("front_panel");
+        FRONT_PANEL_ENABLED = b.comment("false = desliga o painel").define("enabled", true);
+        b.pop();
+        extra(b, "front_panel_size", "Tamanho/posicao do painel da frente.", FRONT_PANEL);
+        b.comment("Painel de tras, igual ao da frente. Se esconder a cauda, desligue ou aumente offsetZ.").push("back_panel");
+        BACK_PANEL_ENABLED = b.comment("false = desliga o painel").define("enabled", true);
+        b.pop();
+        extra(b, "back_panel_size", "Tamanho/posicao do painel de tras.", BACK_PANEL);
         extra(b, "collar", "Gola (parte em volta do pescoco/cabeca).", COLLAR);
 
         SPEC = b.build();
@@ -73,6 +87,16 @@ public final class KittyConfig {
             return v.get().floatValue();
         } catch (IllegalStateException e) {
             return v.getDefault().floatValue();
+        }
+    }
+
+    public static boolean getBool(ForgeConfigSpec.BooleanValue v) {
+        refresh();
+        if (disk != null && disk.get(v.getPath()) instanceof Boolean bo) return bo;
+        try {
+            return v.get();
+        } catch (IllegalStateException e) {
+            return v.getDefault();
         }
     }
 
