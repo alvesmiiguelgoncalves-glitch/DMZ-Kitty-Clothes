@@ -1,5 +1,6 @@
 package com.dmzkittyclothes.client;
 
+import com.dmzkittyclothes.KittyConfig;
 import com.dmzkittyclothes.DmzKittyClothes;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -58,19 +59,22 @@ public class SabJacketModel extends HumanoidModel<LivingEntity> {
         this.rightLeg.visible = true;
         this.leftLeg.visible = true;
         this.hat.visible = false;
-        // Alonga um pouco as mangas so no comprimento (nao cobre a logo)
-        this.rightArm.yScale = ARM_Y;
-        this.leftArm.yScale = ARM_Y;
-        // Encurta a "saia" sem mexer nos UVs: escala as pernas a partir do quadril.
-        for (net.minecraft.client.model.geom.ModelPart leg : new net.minecraft.client.model.geom.ModelPart[]{this.rightLeg, this.leftLeg}) {
-            leg.xScale = SKIRT_X;
-            leg.yScale = SKIRT_Y;
-            leg.zScale = SKIRT_Z;
+        float ax = KittyConfig.get(KittyConfig.ARM_SCALE_X), ay = KittyConfig.get(KittyConfig.ARM_SCALE_Y), az = KittyConfig.get(KittyConfig.ARM_SCALE_Z);
+        for (net.minecraft.client.model.geom.ModelPart arm : new net.minecraft.client.model.geom.ModelPart[]{this.rightArm, this.leftArm}) {
+            arm.xScale = ax;
+            arm.yScale = ay;
+            arm.zScale = az;
         }
+        float sx = KittyConfig.get(KittyConfig.SKIRT_SCALE_X), sy = KittyConfig.get(KittyConfig.SKIRT_SCALE_Y), sz = KittyConfig.get(KittyConfig.SKIRT_SCALE_Z);
+        float ox = KittyConfig.get(KittyConfig.SKIRT_OFFSET_X), oy = KittyConfig.get(KittyConfig.SKIRT_OFFSET_Y), oz = KittyConfig.get(KittyConfig.SKIRT_OFFSET_Z);
+        this.rightLeg.xScale = this.leftLeg.xScale = sx;
+        this.rightLeg.yScale = this.leftLeg.yScale = sy;
+        this.rightLeg.zScale = this.leftLeg.zScale = sz;
+        this.rightLeg.x -= ox;
+        this.leftLeg.x += ox;
+        this.rightLeg.y += oy;
+        this.leftLeg.y += oy;
+        this.rightLeg.z += oz;
+        this.leftLeg.z += oz;
     }
-
-    private static final float ARM_Y = 1.06F;
-    private static final float SKIRT_X = 1.0F;
-    private static final float SKIRT_Y = 0.8F;
-    private static final float SKIRT_Z = 0.85F;
 }

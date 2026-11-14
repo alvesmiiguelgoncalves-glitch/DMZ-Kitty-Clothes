@@ -42,6 +42,7 @@ public class DmzKittyClothes {
         ITEMS.register(bus);
         TABS.register(bus);
         bus.addListener(this::commonSetup);
+        net.minecraftforge.fml.ModLoadingContext.get().registerConfig(net.minecraftforge.fml.config.ModConfig.Type.CLIENT, KittyConfig.SPEC);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
