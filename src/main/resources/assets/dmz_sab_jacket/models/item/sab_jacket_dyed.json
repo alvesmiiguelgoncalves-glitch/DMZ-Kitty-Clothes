@@ -1,4 +1,7 @@
 {
   "parent": "item/generated",
-  "textures": { "layer0": "dmz_sab_jacket:item/sab_jacket_dyed" }
+  "textures": {
+    "layer0": "dmz_sab_jacket:item/sab_jacket_dyed",
+    "layer1": "dmz_sab_jacket:item/sab_jacket_dyed_fixed"
+  }
 }

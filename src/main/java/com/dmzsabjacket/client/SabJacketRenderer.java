@@ -24,7 +24,10 @@ import top.theillusivec4.curios.api.client.ICurioRenderer;
 public class SabJacketRenderer implements ICurioRenderer {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(DmzSabJacket.MOD_ID, "textures/models/sab_jacket.png");
+    // Dyed: the grayscale pixels are tinted; the pixels that the original marks as "not dyeable" (alpha < 255 in
+    // the Bedrock grayscale texture) are drawn again untinted from this second texture.
     private static final ResourceLocation TEXTURE_DYED = new ResourceLocation(DmzSabJacket.MOD_ID, "textures/models/sab_jacket_dyed.png");
+    private static final ResourceLocation TEXTURE_DYED_FIXED = new ResourceLocation(DmzSabJacket.MOD_ID, "textures/models/sab_jacket_dyed_fixed.png");
 
     private final SabJacketModel model;
 
@@ -53,5 +56,10 @@ public class SabJacketRenderer implements ICurioRenderer {
         VertexConsumer consumer = ItemRenderer.getArmorFoilBuffer(buffer,
                 RenderType.armorCutoutNoCull(dyed ? TEXTURE_DYED : TEXTURE), false, stack.hasFoil());
         model.renderToBuffer(poseStack, consumer, light, OverlayTexture.NO_OVERLAY, r, g, b, 1.0F);
+        if (dyed) {
+            VertexConsumer fixed = ItemRenderer.getArmorFoilBuffer(buffer,
+                    RenderType.armorCutoutNoCull(TEXTURE_DYED_FIXED), false, false);
+            model.renderToBuffer(poseStack, fixed, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+        }
     }
 }

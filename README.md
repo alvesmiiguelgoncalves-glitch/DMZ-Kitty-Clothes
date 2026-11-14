@@ -20,5 +20,12 @@ Addon para o **DragonMine Z 2.2** (Forge 1.20.1) que adiciona a **Jaqueta S.A.B.
 
 - Não usa mixin. O DMZ já repassa as camadas de terceiros (inclusive a do Curios) ao renderer dele.
 - O DMZ não desenha camadas de terceiros em formas Oozaru; a jaqueta some nessas formas.
-- O modelo foi convertido do Bedrock (`geometry.overcoat`). As caixas do peito (`breasts`) têm uma rotação de -37,5°; se o peito estiver inclinado para o lado errado, é a única parte onde o sinal da conversão pode estar invertido.
+- O modelo foi convertido do Bedrock (`geometry.overcoat`). A camada do peito (`breasts`) fica de fora, como no addon original (ele a esconde para a armadura).
+- Tingido: os pixels cinza recebem a cor; os detalhes que o original marca como "não tingíveis" (faixas, punhos, detalhes roxos) são desenhados de novo sem tinta, por uma segunda textura.
 - Ainda não foi compilado nem testado no jogo.
+
+## v1.0.1
+
+- Removido o peito (seios) do modelo.
+- Tingimento: os detalhes que não são tingíveis voltam a aparecer, no corpo e no ícone.
+- Manga direita com a mesma espessura da esquerda (a original tinha 0,21 contra 0,3).
