@@ -36,12 +36,43 @@ public final class KittyConfig {
     private KittyConfig() {
     }
 
-    /** Le com seguranca: se a config ainda nao carregou, usa o padrao. */
+    private static final java.nio.file.Path FILE =
+            net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get().resolve(DmzKittyClothes.MOD_ID + "-client.toml");
+    private static com.electronwill.nightconfig.core.Config disk;
+    private static long lastCheck;
+    private static long lastModified = -1;
+
+    /** Le direto do arquivo (recheca a cada ~0,5 s), sem depender do recarregamento automatico do Forge. */
     public static float get(ForgeConfigSpec.DoubleValue v) {
+        refresh();
+        if (disk != null) {
+            Object o = disk.get(v.getPath());
+            if (o instanceof Number n) {
+                return (float) n.doubleValue();
+            }
+        }
         try {
             return v.get().floatValue();
         } catch (IllegalStateException e) {
             return v.getDefault().floatValue();
+        }
+    }
+
+    private static void refresh() {
+        long now = System.currentTimeMillis();
+        if (now - lastCheck < 500) return;
+        lastCheck = now;
+        try {
+            long m = java.nio.file.Files.getLastModifiedTime(FILE).toMillis();
+            if (m == lastModified) return;
+            try (com.electronwill.nightconfig.core.file.CommentedFileConfig c =
+                         com.electronwill.nightconfig.core.file.CommentedFileConfig.builder(FILE).build()) {
+                c.load();
+                disk = com.electronwill.nightconfig.core.Config.copy(c);
+            }
+            lastModified = m;
+        } catch (Exception ignored) {
+            // arquivo ainda nao existe ou esta sendo gravado: tenta de novo depois
         }
     }
 }
